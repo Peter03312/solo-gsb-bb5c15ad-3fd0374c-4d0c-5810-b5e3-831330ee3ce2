@@ -1,0 +1,15 @@
+services:
+  festival-license:
+    build: .
+    container_name: festival-license
+    ports:
+      - "8000:8000"          # 宿主机端口:容器端口，改左侧即可换对外端口
+    environment:
+      DB_PATH: /data/festival.db
+      SEED_DEMO_DATA: "true" # 首次启动写入演示授权，便于直接体验；置 false 关闭
+    volumes:
+      - festival-data:/data  # 持久化 SQLite 数据
+    restart: unless-stopped
+
+volumes:
+  festival-data:
